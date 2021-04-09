@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Controls from '../Controls/Controls';
+import { interval, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 function Stopwatch() {
   const [time, setTime] = useState(0);
@@ -7,16 +9,17 @@ function Stopwatch() {
   const [isPaused, setIsPaused] = useState(false);
 
   useEffect(() => {
-    let interval;
-    if (isActive) {
-      interval = setInterval(() => {
-        setTime((time) => time + 1);
-      }, 1000);
-    } else {
-      clearInterval(interval);
-    }
+    const timer = new Subject();
+    interval(1000)
+      .pipe(takeUntil(timer))
+      .subscribe(() => {
+        if (isActive) {
+          setTime((time) => time + 1);
+        }
+      });
     return () => {
-      clearInterval(interval);
+      timer.next();
+      timer.complete();
     };
   }, [isActive]);
 
