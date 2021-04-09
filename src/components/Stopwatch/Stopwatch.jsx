@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Controls from '../Controls/Controls';
 import { interval, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import './Stopwatch.scss';
 
 function Stopwatch() {
   const [time, setTime] = useState(0);
@@ -53,9 +54,9 @@ function Stopwatch() {
   };
 
   return (
-    <div>
-      <h1>Stopwatch</h1>
-      <div>{formatTime(time)}</div>
+    <div className='stopwatch'>
+      <h1 className='heading'>Stopwatch</h1>
+      <div className='time'>{formatTime(time)}</div>
       <Controls
         isActive={isActive}
         isPaused={isPaused}

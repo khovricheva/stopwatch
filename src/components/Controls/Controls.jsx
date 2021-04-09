@@ -1,4 +1,6 @@
 import React from 'react';
+import Button from 'react-bootstrap/Button';
+import './Controls.scss';
 
 function Controls({
   isActive,
@@ -8,16 +10,16 @@ function Controls({
   handleReset,
 }) {
   return (
-    <div>
-      <button className='' onClick={handleStart}>
+    <div className='controls'>
+      <Button className='control-btn' onClick={handleStart}>
         {isActive && !isPaused ? 'Stop' : 'Start'}
-      </button>
-      <button className='' onDoubleClick={handlePause}>
+      </Button>
+      <Button className='control-btn' onDoubleClick={handlePause}>
         Wait
-      </button>
-      <button className='' onClick={handleReset}>
+      </Button>
+      <Button className='control-btn' onClick={handleReset}>
         Reset
-      </button>
+      </Button>
     </div>
   );
 }
